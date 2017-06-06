@@ -2,18 +2,19 @@ var path = require('path')
 var utils = require('./utils')
 var config = require('../config')
 var vueLoaderConfig = require('./vue-loader.conf')
+var glob = require('glob')
 
 function resolve (dir) {
   return path.join(__dirname, '..', dir)
 }
 
+var entryJS = glob.sync('./src/pages/**/*.js').reduce(function (prev, curr) {
+    prev[curr.slice(6, -3)] = curr;
+    return prev;
+}, {});
+
 module.exports = {
-  entry: {
-    'pages/boys/index': './src/pages/boys/index.js',
-    'pages/goods/index': './src/pages/goods/index.js',
-    'pages/index/index': './src/pages/index/index.js',
-    'pages/sotho/index': './src/pages/sotho/index.js',
-  },
+  entry: entryJS,
   output: {
     path: config.build.assetsRoot,
     filename: '[name].js',

@@ -5,11 +5,22 @@ var merge = require('webpack-merge')
 var baseWebpackConfig = require('./webpack.base.conf')
 var HtmlWebpackPlugin = require('html-webpack-plugin')
 var FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin')
+var glob = require('glob')
 
 // add hot-reload related code to entry chunks
 Object.keys(baseWebpackConfig.entry).forEach(function (name) {
   baseWebpackConfig.entry[name] = ['./build/dev-client'].concat(baseWebpackConfig.entry[name])
 })
+
+var htmls = glob.sync('./src/pages/**/*.html').map(function (item) {
+    return new HtmlWebpackPlugin({
+        filename: './' + item.slice(6),
+        template: item,
+        inject: true,
+        chunks:[item.slice(6, -5)]
+    });
+});
+
 
 module.exports = merge(baseWebpackConfig, {
   module: {
@@ -21,34 +32,10 @@ module.exports = merge(baseWebpackConfig, {
     new webpack.DefinePlugin({
       'process.env': config.dev.env
     }),
-    new HtmlWebpackPlugin({
-      filename:'./pages/boys/index.html',
-      template:'./src/pages/boys/index.html',
-      inject: true,
-      chunks:['pages/boys/index']
-    }),
-    new HtmlWebpackPlugin({
-      filename:'./pages/goods/index.html',
-      template:'./src/pages/goods/index.html',
-      inject: true,
-      chunks:['pages/goods/index']
-    }),
-    new HtmlWebpackPlugin({
-      filename:'./pages/index/index.html',
-      template:'./src/pages/index/index.html',
-      inject: true,
-      chunks:['pages/index/index']
-    }),
-    new HtmlWebpackPlugin({
-      filename:'./pages/sotho/index.html',
-      template:'./src/pages/sotho/index.html',
-      inject: true,
-      chunks:['pages/sotho/index']
-    }),
     // https://github.com/glenjamin/webpack-hot-middleware#installation--usage
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoEmitOnErrorsPlugin(),
     // https://github.com/ampedandwired/html-webpack-plugin
     new FriendlyErrorsPlugin()
-  ]
+  ].concat(htmls)
 })
