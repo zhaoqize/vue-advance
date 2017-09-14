@@ -2,9 +2,22 @@
 
 > A Multiple Pages Vue.js project
 
-拓展:
+### webpack打包编译过程中的几个变量
 
-webpack.config.js的详细解说配置
+Template |	Description
+-- | --
+[hash] | 
+The hash of the module identifier
+[chunkhash] | 
+The hash of the chunk content
+[name] | 
+The module name
+[id] | 
+The module identifier
+[query] | 
+The module query, i.e., the string following ? in the filename
+
+### webpack.config.js的详细解说配置
 ```js
 var path = require('path');
 var webpack = require('webpack');
@@ -26,11 +39,12 @@ module.exports = {
 		list: './src/js/page/list.js',
 		about: './src/js/page/about.js',
 	},
+  // https://webpack.js.org/configuration/output/
 	output: { 
-		path: path.join(__dirname, 'dist'), //输出目录的配置，模板、样式、脚本、图片等资源的路径配置都相对于它
+		path: path.join(__dirname, 'dist'), //输出目录的配置，模板、样式、脚本、图片等资源的路径配置都相对于它;path中的[hash]会替换编译后的hash值
 		publicPath: '/dist/',				//模板、样式、脚本、图片等资源对应的server上的路径
 		filename: 'js/[name].js',			//每个页面对应的主js的生成配置
-		chunkFilename: 'js/[id].chunk.js'   //chunk生成的配置
+		chunkFilename: 'js/[id].chunk.js'   //设置不是入口文件JS的打包配置，比如异步加载require.ensure([],Fn)
 	},
 	module: {
 		loaders: [ //加载器，关于各个加载器的参数配置，可自行搜索之。
