@@ -1,6 +1,7 @@
 [![Travis](https://img.shields.io/badge/boilerplate-vue-00BCD4.svg)]()
 [![GitHub license](https://img.shields.io/github/license/zhaoqize/vue-advance.svg)](https://github.com/zhaoqize/vue-advance/blob/master/LICENSE)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)]()
+[![Travis](https://img.shields.io/badge/oschina-%E6%94%B6%E5%BD%95-orange.svg)](https://www.oschina.net/p/vue-advance)
 
 ## vue-advance
 vue-advance 中的`vue2-multiple`是基于`webpack2.x`实现的多页打包功能模版。
