@@ -7,7 +7,7 @@
 vue-advance 中的`vue2-multiple`是基于`webpack2.x`实现的多页打包功能模版。
 
 ## 使用
-在使用 `vue-multiple` 模版之前必须先安装 `vue-clie`
+在使用 `vue-multiple` 模版之前必须先安装 `vue-cli`
 ```bash
 npm install -g vue-cli
 vue init zhaoqize/vue-advance my-project
